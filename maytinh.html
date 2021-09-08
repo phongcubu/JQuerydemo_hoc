@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Calculator Demo</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+    <style type="text/css">
+        .btn_orange {
+            background-color: orange;
+        }
+        
+        .btn_dark_grey {
+            background-color: darkgrey;
+        }
+        
+        .button {
+            width: 100%;
+            height: 30px;
+            font-size: 14pt;
+        }
+        
+        #screen {
+            text-align: right;
+            height: 40px;
+            font-size: 18pt;
+            border: 1px black solid;
+        }
+        
+        #calculator {
+            border: 1px black double;
+            width: 255px;
+            padding: 10px;
+        }
+        
+        td {
+            width: 25%;
+        }
+        
+        .fas {
+            height: 40px;
+            width: 40px;
+            margin: 5px;
+            font-size: 40px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // hiện máy tính
+            $('#cal_icon').click(function() {
+                $('#calculator').toggle(1000, function() {});
+            });
+
+            //  xử lí sự kiện qua nút bấm
+            $('button').click(function() {
+                var value = $(this).val();
+                switch (value) {
+                    case 'C':
+                        $('#screen').text("");
+                        break;
+                    case '+/-':
+                        var val = $('#screen').text();
+                        val = parseFloat(val);
+                        val = -val;
+                        $('#screen').text(val);
+                        break;
+                    case '%':
+                        //  lấy giá trị từ màn hình
+                        var val = $('#screen').text();
+                        //  sau khi lấy đc text ở màn hỉnh lưu vào val rồi cẩn phải đổi nó ra dạng số
+                        val = parseFloat(val);
+                        val /= 100;
+                        //  hiện tại ra màn hình giá trị val sau khi ta thực hiện
+                        $('#screen').text(val);
+                        break;
+                    case '=':
+                        // 123 + 456 = ????
+                        var x;
+                        var val = $('#screen').text(); // val = '123 + 456' 
+                        val = 'x =' + val; //val = 'x = 123 +456'
+                        eval(val);
+                        $('#screen').text(x);
+
+                        break;
+                    default:
+                        var val = $('#screen').text();
+                        val = val + value;
+                        $('#screen').text(val);
+
+                }
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="tool_bar" style="height: 50px; width: 100px; border: 1px grey solid;">
+        <i class="fas fa-calculator" id="cal_icon"></i>
+    </div>
+    <div id="calculator" style="display: none;">
+        <table width="100%">
+            <tr>
+                <td id="screen" colspan="4">123456</td>
+            </tr>
+            <tr>
+                <td><button value="C" class=" btn_dark_grey">C</button></td>
+                <td><button value="+/-" class=" btn_dark_grey">+/-</button></td>
+                <td><button value="%" class="btn_dark_grey">%</button></td>
+                <td><button value="/" class=" btn_orange">/</button></td>
+            </tr>
+            <tr>
+                <td><button value="7" class="">7</button></td>
+                <td><button value="8" class="">8</button></td>
+                <td><button value="9" class="">9</button></td>
+                <td><button value="*" class=" btn_orange">*</button></td>
+            </tr>
+            <tr>
+                <td><button value="4" class="">4</button></td>
+                <td><button value="5" class="">5</button></td>
+                <td><button value="6" class="">6</button></td>
+                <td><button value="-" class=" btn_orange">-</button></td>
+            </tr>
+            <tr>
+                <td><button value="1" class="">1</button></td>
+                <td><button value="2" class="">2</button></td>
+                <td><button value="3" class="">3</button></td>
+                <td><button value="+" class=" btn_orange">+</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button value="0" class="button">0</button></td>
+                <td><button value="." class="">.</button></td>
+                <td><button value="=" class=" btn_orange">=</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

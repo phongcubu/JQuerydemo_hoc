@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Thông tin giỏ hàng</title>
+    <style type="text/css">
+        .myClass {
+            background-color: yellow;
+            border: 1px black dotted;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //     alert('khởi động JQuuery thành cồng!')
+            //    $('#show_basket').click(function() {
+            //         alert("nút hiện giở hàng");
+            //     });
+
+            //     $('h3').click(function() {
+            //         alert('phần tử h3');
+            //     });
+
+            //     $('.quantity').click(function() {
+            //         alert("Class qu antity !");
+            //     });
+
+            //  thêm thuộc tính  css của lớp myclss css vào the h3
+            // $('#show_basket').click(function() {
+            //     $('h3').addClass('myClass');
+            //     $('.quantity').addClass('myClass');
+            // });
+
+            // // Đảo trạng thái
+            // $('h3').click(function() {
+            //     $('h3').toggleClass('myClass');
+            // });
+
+            // basket_hide show basket
+            // $('#show_basket').click(function() {
+            //     // $('#main_basket').show();
+            //     $('#main_basket').show(500, function() {
+            //         alert("dã hiejn thành cong")
+            //     });
+            // });
+            // $('#basket_hide').click(function() {
+            //     // $('#main_basket').hide();
+            //     $('#main_basket').hide(1000, function() {
+            //         alert("dã ẩn thành cong")
+            //     });
+            // });
+
+            // // 
+            // $('h3').click(function() {
+            //     $('#main_basket').toggle();
+            // });
+
+            // hover chuột
+
+            // $('h3').hover(function() {
+            //     $('h3').addClass('my_Class');
+
+            // }, function() {
+            //     $('h3').removeClass('my_Class');
+            // });
+
+            //  thêm CSS
+            // $('h3').click(function() {
+            //     // $('#show_basket').css('color', 'red' );
+            //     $('#show_basket').css({
+            //         'font-size': '20px',
+            //         'color': 'red'
+            //     });
+            // });
+
+            // Text
+
+            // $('#show_basket').click(function() {
+            //     //$('#total').text('1.000.000'); // truyền dữ liệu
+            //     $('#total').html('1.000.000 <br> VND'); // thưc hieejh câu lệnh html bên trong 
+            //     var st = $('#subtatal').text(); // lấy dữ liệu
+            //     $('h3').append('Nội dung mới được thêm ở đây !');
+            //     console.log(st);
+
+            //    // $('#main_basket').empty();
+            // });
+
+            $('#basket_update').click(function() {
+                // var val_1 = $('#total_1').text();
+                // val_1 = parseFloat(val_1);
+                // var val_2 = $('#total_2').text();
+                // val_2 = parseFloat(val_2);
+                // var val_3 = $('#total_3').text();
+                // val_3 = parseFloat(val_3);
+                // var sum = val_1 + val_2 + val_3;
+
+                // $('#main_subtotal').text(sum);
+                // $('#subtotal').text(sum);
+                // =====
+                sum = 0
+                $('.quantity').each(function() {
+                    var id = $(this).attr('id');
+                    var quantity = $(this).val();
+                    quantity = parseFloat(quantity);
+                    var price = $('#price_' + id).text();
+                    price = parseFloat(price);
+
+                    var total = quantity * price;
+                    $('#total_' + id).text(total);
+                    sum += total;
+
+
+                });
+                $('#main_subtotal').text(sum);
+                $('#subtotal').text(sum);
+                var tax = Math.floor(sum * 0.1);
+                total = Math.floor(sum * 1.1);
+                $('#tax').text(tax);
+                $('#total').text(total);
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div style="width:100%">
+        <div style="width:30%; float: left;">
+            <h3>GIỎ HÀNG</h3>
+            <table border="1">
+                <tr>
+                    <td>Tổng trước thuế</td>
+                    <td id="subtotal">980000 đ</td>
+                </tr>
+                <tr>
+                    <td>Thuế</td>
+                    <td id="tax">0đ</td>
+                </tr>
+                <tr>
+                    <td><b>Tổng tiền</b></td>
+                    <td id="total"></td>
+                </tr>
+            </table>
+            <button id="show_basket">Hiện giỏ hàng chi tiết</button>
+        </div>
+        <div style="width:70%;float: left;">
+            <div id="main_basket" "> 
+				<!-- style=" display: none; -->
+                <h3>GIỎ HÀNG CHI TIẾT</h3>
+                <table border="1">
+                    <tr>
+                        <th>Tên hàng</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                    <tr>
+                        <td>TV Sony</td>
+                        <td><input type="text" class="quantity" id="1" value="1"></td>
+                        <td id="price_1">10000000</td>
+                        <td id="total_1">10000000</td>
+                    </tr>
+                    <tr>
+                        <td>Tủ lạnh Sharp</td>
+                        <td><input type="text" class="quantity" id="2" value="1"></td>
+                        <td id="price_2">80000000</td>
+                        <td id="total_2">80000000</td>
+                    </tr>
+                    <tr>
+                        <td>Xe máy Wave Alpha</td>
+                        <td><input type="text" class="quantity" id="3" value="1"></td>
+                        <td id="price_3">20000000</td>
+                        <td id="total_3">20000000</td>
+                    </tr>
+                    <tr>
+                        <td colspan=3>TỔNG TIỀN</td>
+                        <td id="main_subtotal"></td>
+                    </tr>
+                </table>
+                <button id="basket_update">Cập nhật giỏ hàng</button>
+                <button id="basket_hide">ẩn giỏ hàng</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
